@@ -64,3 +64,17 @@ def get_count():
     """
     counter = Counters.query.filter(Counters.id == 1).first()
     return make_succ_response(0) if counter is None else make_succ_response(counter.count)
+    
+@app.route('/api/ufile', methods=['post'])
+def ufile():
+    try:
+        file = request.files['file']
+        r = re.search(r'(\.\S+)', file.filename)
+        fn = ""
+        if(r != None):
+            fn = r.group()
+            file.save(u_path + './static/' + str(time.time())+fn) # 没有判断文件夹是否存在，需自己先创建一个
+            return make_err_response('success')
+    except Exception as e:
+        print(e)
+        return make_err_response('fail')
