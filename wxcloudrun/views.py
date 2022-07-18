@@ -70,11 +70,11 @@ def get_count():
     
 @app.route('/api/ufile', methods=['post'])
 def ufile():
+    file_path = current_directory+'/static/' + str(time.time())+file.filename
     try:
         file = request.files['file']
-        file_path = current_directory+'/static/' + str(time.time())+file.filename
         file.save(file_path) # 没有判断文件夹是否存在，需自己先创建一个
         return make_err_response('success:'+file_path)
     except Exception as e:
         print(e)
-        return make_err_response('fail')
+        return make_err_response('fail:'+file_path+str(e))
