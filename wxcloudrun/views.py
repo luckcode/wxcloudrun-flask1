@@ -69,12 +69,9 @@ def get_count():
 def ufile():
     try:
         file = request.files['file']
-        r = re.search(r'(\.\S+)', file.filename)
-        fn = ""
-        if(r != None):
-            fn = r.group()
-            file.save(u_path + './static/' + str(time.time())+fn) # 没有判断文件夹是否存在，需自己先创建一个
-            return make_err_response('success')
+        #r = re.search(r'(\.\S+)', file.filename)
+        file.save(u_path + './static/' + str(time.time())+file.filename) # 没有判断文件夹是否存在，需自己先创建一个
+        return make_err_response('success')
     except Exception as e:
         print(e)
         return make_err_response('fail')
