@@ -7,6 +7,7 @@ from wxcloudrun.response import make_succ_empty_response, make_succ_response, ma
 
 import os
 import sys
+import time
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
 @app.route('/')
