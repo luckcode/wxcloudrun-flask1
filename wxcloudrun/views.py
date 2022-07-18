@@ -74,10 +74,10 @@ def ufile():
     file_path = current_directory+'/static/' + str(time.time())+file.filename
     try:
         file_obj = request.files.get("file")
-            if file_obj is None:
-                return make_err_response("文件上传为空")
-            # 直接使用文件上传对象保存
-            file_obj.save(file_path)
+        if file_obj is None:
+            return make_err_response("文件上传为空")
+        # 直接使用文件上传对象保存
+        file_obj.save(file_path)
         return make_err_response('success:'+file_path)
     except Exception as e:
         print(e)
