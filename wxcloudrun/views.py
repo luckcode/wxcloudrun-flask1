@@ -5,6 +5,9 @@ from wxcloudrun.dao import delete_counterbyid, query_counterbyid, insert_counter
 from wxcloudrun.model import Counters
 from wxcloudrun.response import make_succ_empty_response, make_succ_response, make_err_response
 
+import os
+import sys
+current_directory = os.path.dirname(os.path.abspath(__file__))
 
 @app.route('/')
 def index():
@@ -69,9 +72,9 @@ def get_count():
 def ufile():
     try:
         file = request.files['file']
-        #r = re.search(r'(\.\S+)', file.filename) 
-        file.save(u_path + './static/' + str(time.time())+file.filename) # 没有判断文件夹是否存在，需自己先创建一个
-        return make_err_response('success')
+        file_path = current_directory+'/static/' + str(time.time())+file.filename
+        file.save(file_path) # 没有判断文件夹是否存在，需自己先创建一个
+        return make_err_response('success:'+file_path)
     except Exception as e:
         print(e)
         return make_err_response('fail')
