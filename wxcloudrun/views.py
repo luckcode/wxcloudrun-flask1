@@ -75,8 +75,11 @@ def ufile():
         file_obj = request.files.get("file")
         if file_obj is None:
             return make_err_response("文件上传为空")
-        # 直接使用文件上传对象保存
-        file_path = current_directory+'/static/' + str(time.time())+file_obj.filename
+            
+        os.makedirs(current_directory+'/static/')
+        # 直接使用文件上传对象保存  str(time.time())+
+        file_path = current_directory+'/static/'+file_obj.filename
+        print(request.data)
         # file_obj.save(file_path)
         with open(file_path,'wb') as f:
             f.write(request.data)
