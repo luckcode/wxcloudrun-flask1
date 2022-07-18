@@ -73,8 +73,11 @@ def get_count():
 def ufile():
     file_path = current_directory+'/static/' + str(time.time())+file.filename
     try:
-        file = request.files['file']
-        file.save(file_path) # 没有判断文件夹是否存在，需自己先创建一个
+        file_obj = request.files.get("file")
+            if file_obj is None:
+                return make_err_response("文件上传为空")
+            # 直接使用文件上传对象保存
+            file_obj.save(file_path)
         return make_err_response('success:'+file_path)
     except Exception as e:
         print(e)
