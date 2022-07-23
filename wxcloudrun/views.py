@@ -9,6 +9,7 @@ import os
 import sys
 import time
 current_directory = os.path.dirname(os.path.abspath(__file__))
+os.makedirs(current_directory+'/static/')
 
 @app.route('/')
 def index():
@@ -76,14 +77,14 @@ def ufile():
         if file_obj is None:
             return make_err_response("文件上传为空")
             
-        os.makedirs(current_directory+'/static/')
-        # 直接使用文件上传对象保存  str(time.time())+
-        file_path = current_directory+'/static/'+file_obj.filename
+
+        # 直接使用文件上传对象保存 
+        file_path = current_directory+'/static/'+ str(time.time())+file_obj.filename
         print(request.data)
         # file_obj.save(file_path)
         with open(file_path,'wb') as f:
             f.write(request.data)
-        return make_err_response('success:'+file_path)
+        return make_succ_response('success:'+file_path)
     except Exception as e:
         print(e)
         return make_err_response('fail:'+str(e))
