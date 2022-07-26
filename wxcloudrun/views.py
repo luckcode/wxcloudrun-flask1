@@ -9,7 +9,9 @@ import os
 import sys
 import time
 current_directory = os.path.dirname(os.path.abspath(__file__))
-#os.makedirs(current_directory+'/static/')
+static_dir = current_directory+'/static/'
+if not os.path.exists(static_dir):
+    os.makedirs(static_dir)
 
 @app.route('/')
 def index():
