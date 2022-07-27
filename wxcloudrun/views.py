@@ -26,7 +26,10 @@ def count():
     """
     :return:计数结果/清除结果
     """
-
+    
+    # 获取openid
+    request.headers['x-wx-openid']
+    
     # 获取请求体参数
     params = request.get_json()
 
@@ -58,7 +61,9 @@ def count():
     elif action == 'clear':
         delete_counterbyid(1)
         return make_succ_empty_response()
-
+    
+    elif action == 'openid':
+        return make_succ_response(request.headers['x-wx-openid'])
     # action参数错误
     else:
         return make_err_response('action参数错误')
