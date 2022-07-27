@@ -8,7 +8,6 @@ from wxcloudrun.response import make_succ_empty_response, make_succ_response, ma
 import os
 import sys
 import time
-import datetime
 current_directory = os.path.dirname(os.path.abspath(__file__))
 static_dir = current_directory+'/static/'
 if not os.path.exists(static_dir):
@@ -80,11 +79,11 @@ def ufile():
         if file_obj is None:
             return make_err_response("文件上传为空")
             
-
         # 直接使用文件上传对象保存 
         now = datetime.datetime.now()
         prefix = now.strftime("%Y-%m-%d-%H_%M_%S")
         
+        # 保持文件
         file_path = static_dir+ prefix+'-'+file_obj.filename
         with open(file_path,'wb') as f:
             f.write(request.data)
